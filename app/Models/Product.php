@@ -25,4 +25,14 @@ class Product extends Model
         'meta_keyword',
         'meta_description'
     ];
+
+    public function Category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function ProductImages()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

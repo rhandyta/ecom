@@ -13,12 +13,12 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+      <a class="nav-link" data-bs-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
         <i class="mdi mdi-database menu-icon"></i>
         <span class="menu-title">Categories</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="ui-basic">
+      <div class="collapse" id="category">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('category.create') }}"> Add Category </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('category.index') }}"> View Categories </a></li>
@@ -26,14 +26,14 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
+      <a class="nav-link" data-bs-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
         <i class="mdi mdi-account menu-icon"></i>
         <span class="menu-title">Products</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="products">
+      <div class="collapse" id="product">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href=""> Add Product </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route("product.create") }}"> Add Product </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route("product.index") }}"> View Products </a></li>
         </ul>
       </div>

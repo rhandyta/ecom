@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,5 @@ Route::group([
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('category', CategoryController::class);
     Route::get('brand', App\Http\Livewire\Admin\Brand\Index::class)->name('brand.index');
-    Route::get('product', App\Http\Livewire\Admin\Brand\Index::class)->name('product.index');
+    Route::resource('product', ProductController::class);
 });
