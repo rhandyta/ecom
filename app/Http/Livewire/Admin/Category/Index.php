@@ -15,7 +15,7 @@ class Index extends Component
 
     public function render()
     {
-        $categories = Category::orderBy('id', 'DESC')->paginate(25);
+        $categories = Category::orderBy('id', 'DESC')->paginate(50);
         return view('livewire.admin.category.index', compact('categories'));
     }
 

@@ -28,8 +28,13 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth', 'isAdmin']
 ], function () {
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::resource('category', CategoryController::class);
+
     Route::get('brand', App\Http\Livewire\Admin\Brand\Index::class)->name('brand.index');
+
     Route::resource('product', ProductController::class);
+    Route::get('product/product-image/{id}/delete', [ProductController::class, 'destroyImage'])->name('product.destroyImage');
 });
