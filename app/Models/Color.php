@@ -10,4 +10,9 @@ class Color extends Model
     use HasFactory;
     protected $table = 'colors';
     protected $fillable = ['name', 'code', 'status'];
+
+    public function ProductColors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
 }

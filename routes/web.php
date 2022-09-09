@@ -38,6 +38,8 @@ Route::group([
 
     Route::resource('product', ProductController::class);
     Route::get('product/product-image/{id}/delete', [ProductController::class, 'destroyImage'])->name('product.destroyImage');
+    Route::post('product/product-color/{prodColorId}', [ProductController::class, 'updateProdColorQuantity'])->name('product.colorUpdate');
+    Route::get('product/product-deletecolor/{prodColorId}', [ProductController::class, 'destroyProdColorQuantity'])->name('product.colorDestroy');
 
     Route::resource('color', ColorController::class);
 });

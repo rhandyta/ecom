@@ -127,11 +127,14 @@
                             </div>
                             <div class="tab-pane fade border p-3" id="color" role="tabpanel" aria-labelledby="color-tab">
                                 <div class="form-group mb-3">
-                                    <label for="colors">Select Colors</label>
+                                    <h4>Select Colors</h4>
                                     <div class="row">
                                         @forelse ($colors as $item)
                                         <div class="col-md-3">
-                                                <input type="checkbox" name="colors[]" class="form-check-input" value="{{ $item->id }}"> {{ $item->name }}
+                                            <div class="p-2 mb-2 border">
+                                                Colors : <input type="checkbox" name="colors[{{ $item->id }}]" class="form-check-input" value="{{ $item->id }}"> {{ $item->name }} <br>
+                                                Quantity : <input type="number" name="colorquantity[{{ $item->id }}]" class="form-control" min="0" style="height:25px;">
+                                            </div>                                            
                                         </div>
                                         @empty
                                             <div class="col-md-12">

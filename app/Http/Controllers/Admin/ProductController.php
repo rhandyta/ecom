@@ -8,7 +8,9 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductColor;
 use App\Models\ProductImage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -62,6 +64,15 @@ class ProductController extends Controller
                 ]);
             }
         }
+        if ($request->colors) {
+            foreach ($request->colors as $key => $color) {
+                $product->productColors()->create([
+                    'product_id' => $product->id,
+                    'color_id' => $color,
+                    'quantity' => $request->colorquantity[$key] ?? 0
+                ]);
+            }
+        }
 
         return redirect()->route('product.index')->with('message', 'Product has been added successfully');
     }
@@ -71,7 +82,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($product_id);
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.product.edit', compact('product', 'categories', 'brands'));
+        $productColors = $product->ProductColors->pluck('color_id')->toArray();
+        $colors = Color::whereNotIn('id', $productColors)->get();
+        return view('admin.product.edit', compact('product', 'categories', 'brands', 'colors', 'productColors'));
     }
 
     public function update(ProductFormRequest $request, $product_id)
@@ -111,7 +124,15 @@ class ProductController extends Controller
                 ]);
             }
         }
-
+        if ($request->colors) {
+            foreach ($request->colors as $key => $color) {
+                $product->productColors()->create([
+                    'product_id' => $product->id,
+                    'color_id' => $color,
+                    'quantity' => $request->colorquantity[$key] ?? 0
+                ]);
+            }
+        }
         return redirect()->route('product.index')->with('message', 'Product has been updated successfully');
     }
 
@@ -136,5 +157,28 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect()->back()->with('message', 'Product has been deleted successfully');
+    }
+
+    public function updateProdColorQuantity(Request $request, $prodColorId)
+    {
+        $productColorData = Product::findOrFail($request->product_id)
+            ->productColors()
+            ->where('id', '=', $prodColorId)
+            ->first();
+        $productColorData->update([
+            'quantity' => $request->quantity
+        ]);
+        return response()->json([
+            'message' => 'Product colors quantity updated successfully'
+        ]);
+    }
+
+    public function destroyProdColorQuantity($prodColorId)
+    {
+        ProductColor::findOrFail($prodColorId)
+            ->delete();
+        return response()->json([
+            'message' => 'Product color has been deleted successfully'
+        ]);
     }
 }
