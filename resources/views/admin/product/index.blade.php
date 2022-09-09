@@ -41,7 +41,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->selling_price }}</td>
                                     <td>{{ $item->quantity }}</td>
-                                    <td>{{ $item->status }}</td>
+                                    <td>{{ $item->status == '1' ? "Hidden" : 'Visible' }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('product.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>

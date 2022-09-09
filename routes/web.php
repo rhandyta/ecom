@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -37,4 +38,6 @@ Route::group([
 
     Route::resource('product', ProductController::class);
     Route::get('product/product-image/{id}/delete', [ProductController::class, 'destroyImage'])->name('product.destroyImage');
+
+    Route::resource('color', ColorController::class);
 });

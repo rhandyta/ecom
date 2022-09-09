@@ -17,16 +17,19 @@
                     @endif
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="seotag-tab" data-bs-toggle="tab" data-bs-target="#seotag" type="button" role="tab" aria-controls="seotag" aria-selected="false">SEO Tags</button>
+                            <button class="nav-link" id="seotag-tab" data-bs-toggle="tab" data-bs-target="#seotag" type="button" role="tab" aria-controls="seotag" aria-selected="false">SEO Tags</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Details</button>
+                            <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Details</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" type="button" role="tab" aria-controls="image" aria-selected="false">Image</button>
+                            <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" type="button" role="tab" aria-controls="image" aria-selected="false">Image</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color" type="button" role="tab" aria-controls="color" aria-selected="false">Color</button>
                         </li>
                     </ul>
                     <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
@@ -120,6 +123,22 @@
                                 <div class="form-group mb-3">
                                     <label for="image">Product Image</label>
                                     <input type="file" name="image[]" class="form-control" multiple >
+                                </div>
+                            </div>
+                            <div class="tab-pane fade border p-3" id="color" role="tabpanel" aria-labelledby="color-tab">
+                                <div class="form-group mb-3">
+                                    <label for="colors">Select Colors</label>
+                                    <div class="row">
+                                        @forelse ($colors as $item)
+                                        <div class="col-md-3">
+                                                <input type="checkbox" name="colors[]" class="form-check-input" value="{{ $item->id }}"> {{ $item->name }}
+                                        </div>
+                                        @empty
+                                            <div class="col-md-12">
+                                                <h6>No colors found, <a href="{{ route('color.index') }}" class="link-primary">Add colors</a></h6>
+                                            </div>
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         </div>
