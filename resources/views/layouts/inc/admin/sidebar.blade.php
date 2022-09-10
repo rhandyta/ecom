@@ -67,7 +67,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/tables/basic-table.html">
+      <a class="nav-link" href="{{ route('slider.index') }}">
         <i class="mdi mdi-theater menu-icon"></i>
         <span class="menu-title">Home Slider</span>
       </a>

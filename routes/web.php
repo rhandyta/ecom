@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,4 +43,6 @@ Route::group([
     Route::get('product/product-deletecolor/{prodColorId}', [ProductController::class, 'destroyProdColorQuantity'])->name('product.colorDestroy');
 
     Route::resource('color', ColorController::class);
+
+    Route::resource('slider', SliderController::class);
 });
