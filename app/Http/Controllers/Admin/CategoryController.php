@@ -35,11 +35,12 @@ class CategoryController extends Controller
         $this->category->description = $validateData['description'];
 
         if ($request->hasFile('image')) {
+            $path = 'uploads/category/';
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-            $file->move('uploads/category/', $filename);
-            $this->category->image = $filename;
+            $file->move($path, $filename);
+            $this->category->image = $path . $filename;
         }
 
         $this->category->meta_title = $validateData['meta_title'];
@@ -73,7 +74,7 @@ class CategoryController extends Controller
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
             $file->move('uploads/category/', $filename);
-            $category->image = $filename;
+            $category->image = $path;
         }
 
         $category->meta_title = $validateData['meta_title'];

@@ -68,7 +68,7 @@ class SliderController extends Controller
         $slider->update([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
-            'image' => $request->file('image') == true ? $validatedData['image'] : $slider->image,
+            'image' => $validatedData['image'] ?? $slider->image,
             'status' => $validatedData['status'],
         ]);
 
