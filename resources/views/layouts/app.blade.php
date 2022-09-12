@@ -8,7 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') | Mini E-Commerce</title>
-
+    <meta name="keyword" content="@yield('meta_keyword')">
+    <meta name="description" content="@yield('meta_description')">
+    <meta name="author" content="Mini E-Commerce">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
