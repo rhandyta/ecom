@@ -14,6 +14,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Category</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -26,6 +27,13 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>
+                                        @if ($item->category)
+                                            {{ $item->category->name }}
+                                        @else
+                                            No Category
+                                        @endif
+                                    </td>
                                     <td>{{ $item->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                     <td>
                                         <button wire:click="editBrand({{ $item->id }})" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editBrandModal">Edit</button>
