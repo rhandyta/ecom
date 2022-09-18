@@ -29,7 +29,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('collections', [FrontendController::class, 'categories'])->name('categories');
 Route::get('collections/{category:slug}', [FrontendController::class, 'products'])->name('categories.slug');
-Route::get('collections/{category:slug}/{product:slug}', [FrontendController::class, 'dawdawd'])->name('categoryproduct.slug');
+Route::get('collections/{category:slug}/{product:slug}', [FrontendController::class, 'productView'])->name('productView.slug');
 
 Auth::routes();
 

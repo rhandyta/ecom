@@ -6,6 +6,7 @@ use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 
 class FrontendController extends Controller
 {
@@ -25,8 +26,26 @@ class FrontendController extends Controller
     {
         $category = Category::where('slug', '=', $category_slug)->first();
         if ($category) {
-
             return view('frontend.collections.products.index', compact('category'));
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function productView(string $category_slug, string $product_slug)
+    {
+        $category = Category::where('slug', '=', $category_slug)->first();
+        if ($category) {
+            $product = $category->products()
+                ->where('slug', '=', $product_slug)
+                ->where('status', '=', 0)
+                ->first();
+
+            if ($product) {
+                return view('frontend.collections.products.view', compact('product', 'category'));
+            } else {
+                return redirect()->back();
+            }
         } else {
             return redirect()->back();
         }
