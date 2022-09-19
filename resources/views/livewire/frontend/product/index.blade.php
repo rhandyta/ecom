@@ -41,7 +41,7 @@
                                     <label class="stock bg-danger">Out of Stock</label>
                                 @endif
                                 @if ($product->ProductImages->count() > 0)
-                                    <a href="{{ route('categoryproduct.slug', [
+                                    <a href="{{ route('productView.slug', [
                                         'category' => $product->category->slug,
                                             'product' => $product->slug]
                                         ) }}">
@@ -52,7 +52,7 @@
                             <div class="product-card-body">
                                 <p class="product-brand">{{ $product->brand }}</p>
                                 <h5 class="product-name">
-                                   <a href="{{ route('categoryproduct.slug', [
+                                   <a href="{{ route('productView.slug', [
                                        'category' => $product->category->slug,
                                         'product' => $product->slug]
                                     ) }}">

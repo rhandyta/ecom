@@ -21,4 +21,9 @@ class View extends Component
             'product' => $this->product,
         ]);
     }
+
+    public function colorSelected($productColorId)
+    {
+        dd($productColorId);
+    }
 }
