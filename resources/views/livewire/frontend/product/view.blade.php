@@ -1,13 +1,18 @@
 <div>
-    <div class="py-3 py-md-5">
+    <div class="py-3 py-md-5 bg-light">
         <div class="container">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {!! session('message') !!}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-5 mt-3">
                     <div class="bg-white border">
-                        @if ($product->ProductImages)
-                        <img src="{{ asset($product->productImages[0]->image) }}" class="w-100" alt="Img">
+                        @if($product->productImages)
+                            <img src="{{ asset($product->productImages[0]->image) }}" class="w-100" alt="Img">
                         @else
-                            No Image
+                            No image
                         @endif
                     </div>
                 </div>
@@ -15,33 +20,35 @@
                     <div class="product-view">
                         <h4 class="product-name">
                             {{ $product->name }}
-                            
                         </h4>
                         <hr>
                         <p class="product-path">
-                            Home / {{ $product->Category->name }} / Product / {{ $product->name }}
+                            <a href="{{ route('categories') }}">Home</a> / <a href="{{ route("categories.slug", ["category" => $product->Category->name]) }}">{{ $product->Category->name }}</a> / {{ $product->name }}
                         </p>
                         <div>
                             <span class="selling-price">${{ $product->selling_price }}</span>
                             <span class="original-price">${{ $product->original_price }}</span>
                         </div>
-                        <div>
-                            @if ($product->productcolors->count() > 0)
-                                @if ($product->productcolors)
-                                    @foreach ($product->productcolors as $productcolor)
-                                        {{-- <input type="radio" class="form-check-input" name="colorSelection" value="{{ $productColor->id }}" /> {{ $productColor->color->name }} --}}
-                                        <label class="colorSelectionLabel" style="background-color: {{ $productcolor->color->code }}" wire:click="colorSelected({{ $productcolor->id }})"
-                                            >
-                                            {{ $productcolor->color->name }}
-                                        </label>
+                        <div class="">
+                            @if($product->ProductColors->count() > 0)
+                                @if ($product->ProductColors)
+                                    @foreach ($product->ProductColors as $productColorItem)
+                                        <label wire:click="colorSelected({{ $productColorItem->id }})" class="colorSelectionLabel" style="background-color: {{ $productColorItem->color->code }}">{{ $productColorItem->color->name }}</label>
                                     @endforeach
-                                    
                                 @endif
+                                <div class="">
+                                    @if ($this->productColorSelectedQuantity == 'OutofStock')
+                                        <label class="btn btn-sm mt-2 py-1 text-white label-stock bg-danger">Out of Stock</label>
+                                    @elseif($this->productColorSelectedQuantity > 0)
+                                        <label class="btn btn-sm mt-2 py-1 text-white label-stock bg-success">In Stock</label>  
+                                    @endif
+                                </div>
+
                             @else
-                                @if ($product->quantity)
-                                    <label class="btn btn-sm text-white py-1 mt-2 bg-success">In Stock</label>
+                                @if($product->quantity)
+                                    <label class="btn btn-sm mt-2 py-1 text-white label-stock bg-success">In Stock</label>
                                 @else
-                                    <label class="btn btn-sm text-white py-1 mt-2 bg-danger">Out of Stock</label>
+                                    <label class="btn btn-sm mt-2 py-1 text-white label-stock bg-danger">Out of Stock</label>
                                 @endif
                             @endif
                         </div>
@@ -54,12 +61,19 @@
                         </div>
                         <div class="mt-2">
                             <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
-                            <a href="" class="btn btn1"> <i class="fa fa-heart"></i> Add To Wishlist </a>
+                            <button wire:click="addToWishlist({{ $product->id }})" type="button" class="btn btn1"> 
+                                <div wire:loading.remove>
+                                    <i class="fa fa-heart"></i> Add To Wislist
+                                </div>
+                                <div wire:loading wire:target="addToWishlist">
+                                    Adding...
+                                </div>
+                            </button>
                         </div>
                         <div class="mt-3">
                             <h5 class="mb-0">Small Description</h5>
                             <p>
-                                {!! $product->small_description !!}
+                                {{ $product->small_description }}
                             </p>
                         </div>
                     </div>
@@ -73,7 +87,7 @@
                         </div>
                         <div class="card-body">
                             <p>
-                                {!! $product->description !!}
+                                {{ $product->description }}
                             </p>
                         </div>
                     </div>

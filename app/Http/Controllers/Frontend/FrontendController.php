@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Slider;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Product;
 
 class FrontendController extends Controller
 {
