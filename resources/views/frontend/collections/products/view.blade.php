@@ -10,7 +10,7 @@
 @endsection
 @section('content')
     
-    <div class="">
+    <div>
         @livewire('frontend.product.view', ['product' => $product, 'category' => $category], key($product->id))
     </div>
 
