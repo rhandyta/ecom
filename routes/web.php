@@ -31,7 +31,12 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('collections', [FrontendController::class, 'categories'])->name('categories');
 Route::get('collections/{category:slug}', [FrontendController::class, 'products'])->name('categories.slug');
 Route::get('collections/{category:slug}/{product:slug}', [FrontendController::class, 'productView'])->name('productView.slug');
-Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+
+Route::group([
+    'middleware' => ['auth']
+], function () {
+    Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+});
 
 Auth::routes();
 
