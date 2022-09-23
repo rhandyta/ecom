@@ -9,7 +9,7 @@
 {{ $product->meta_description }}
 @endsection
 @section('content')
-    
+
     <div>
         @livewire('frontend.product.view', ['product' => $product, 'category' => $category], key($product->id))
     </div>

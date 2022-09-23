@@ -92,7 +92,6 @@
         window.addEventListener('message', event => {
             alertify.set('notifier','position', 'top-right');
             alertify.notify(event.detail.text, event.detail.type);
-            console.log(event)
         })
     </script>
     @livewireScripts
