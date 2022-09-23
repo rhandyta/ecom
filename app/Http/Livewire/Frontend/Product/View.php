@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Frontend\Product;
 
 use App\Models\Wishlist;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class View extends Component

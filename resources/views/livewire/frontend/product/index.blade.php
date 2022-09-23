@@ -42,7 +42,7 @@
                                 @endif
                                 @if ($product->ProductImages->count() > 0)
                                     <a href="{{ route('productView.slug', [
-                                        'category' => $product->category->slug,
+                                        'category' => $category->slug,
                                             'product' => $product->slug]
                                         ) }}">
                                         <img src="{{ asset($product->ProductImages[0]->image) }}" alt="{{ $product->name }}">
@@ -53,7 +53,7 @@
                                 <p class="product-brand">{{ $product->brand }}</p>
                                 <h5 class="product-name">
                                    <a href="{{ route('productView.slug', [
-                                       'category' => $product->category->slug,
+                                       'category' => $category->slug,
                                         'product' => $product->slug]
                                     ) }}">
                                         {{ $product->name }}

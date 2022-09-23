@@ -23,7 +23,7 @@
                         </h4>
                         <hr>
                         <p class="product-path">
-                            <a href="{{ route('categories') }}">Home</a> / <a href="{{ route("categories.slug", ["category" => $product->Category->name]) }}">{{ $product->Category->name }}</a> / {{ $product->name }}
+                            <a href="{{ route('categories') }}">Home</a> / <a href="{{ route("categories.slug", ["category" => $category->name]) }}">{{ $category->name }}</a> / {{ $product->name }}
                         </p>
                         <div>
                             <span class="selling-price">${{ $product->selling_price }}</span>
