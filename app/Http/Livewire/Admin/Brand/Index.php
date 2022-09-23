@@ -78,7 +78,7 @@ class Index extends Component
 
     public function updateBrand()
     {
-        $validatedData = $this->validate();
+        // $validatedData = $this->validate();
         Brand::findOrFail($this->brand_id)->update([
             'name' => $this->name,
             'slug' => $this->slug,

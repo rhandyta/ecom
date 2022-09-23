@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('collections', [FrontendController::class, 'categories'])->name('categories');
@@ -33,7 +35,6 @@ Route::group([
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
 });
 
-Auth::routes();
 
 Route::group([
     'prefix' => 'admin',
