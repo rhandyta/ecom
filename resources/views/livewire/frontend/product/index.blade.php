@@ -45,7 +45,7 @@
                                         'category' => $product->category->slug,
                                             'product' => $product->slug]
                                         ) }}">
-                                        <img src="{{ asset($product->ProductImages[0]->image) }}" alt="{{ $product->names }}">
+                                        <img src="{{ asset($product->ProductImages[0]->image) }}" alt="{{ $product->name }}">
                                     </a>
                                 @endif
                             </div>
