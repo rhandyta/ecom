@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Frontend\Cart;
 
 use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CartShow extends Component
@@ -76,6 +77,26 @@ class CartShow extends Component
         } else {
             $this->dispatchBrowserEvent('message', [
                 'text' => "Something went wrong",
+                'type' => "error",
+                'status' => 404
+            ]);
+        }
+    }
+
+    public function removeCartItem(int $cartId)
+    {
+        $cardRemoveData = Cart::where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
+        if ($cardRemoveData) {
+            $cardRemoveData->delete();
+            $this->dispatchBrowserEvent('message', [
+                'text' => "Item has been deleted",
+                'type' => "success",
+                'status' => 200
+            ]);
+            $this->emit("CartAddedOrUpdated");
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text' => "Item no exists",
                 'type' => "error",
                 'status' => 404
             ]);

@@ -56,9 +56,9 @@
                                     <div class="col-md-2 col-7 my-auto">
                                         <div class="quantity">
                                             <div class="input-group">
-                                                <button type="button" wire:loading.attr='disable' wire:click='decrementQuantity({{ $cartItem->id }})' class="btn btn1"><i class="fa fa-minus"></i></button>
+                                                <button type="button" wire:loading.attr='disabled' wire:click='decrementQuantity({{ $cartItem->id }})' class="btn btn1"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="{{ $cartItem->quantity }}" class="input-quantity" />
-                                                <button type="button" wire:loading.attr='disable' wire:click='incrementQuantity({{ $cartItem->id }})' class="btn btn1"><i class="fa fa-plus"></i></button>
+                                                <button type="button" wire:loading.attr='disabled' wire:click='incrementQuantity({{ $cartItem->id }})' class="btn btn1"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -67,9 +67,14 @@
                                     </div>
                                     <div class="col-md-2 col-5 my-auto">
                                         <div class="remove">
-                                            <a href="" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i> Remove
-                                            </a>
+                                            <button type="button" wire:loading.attr='disabled' wire:click="removeCartItem({{ $cartItem->id }})" class="btn btn-danger btn-sm">
+                                                <span wire:loading.remove wire:target='removeCartItem({{ $cartItem->id }})'>
+                                                    <i class="fa fa-trash"></i> Remove
+                                                </span>
+                                                <span wire:loading wire:target='removeCartItem({{ $cartItem->id }})'>
+                                                    <i class="fa fa-trash"></i> Removing
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
