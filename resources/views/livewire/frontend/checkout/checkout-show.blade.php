@@ -27,27 +27,27 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label>Full Name</label>
-                                        <input type="text" wire:model="fullname" class="form-control" placeholder="Enter Full Name" />
+                                        <input type="text" wire:model.defer="fullname" class="form-control" placeholder="Enter Full Name" />
                                         @error('fullname')<small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label>Phone Number</label>
-                                        <input type="text" wire:model="phone" class="form-control" placeholder="Enter Phone Number" />
+                                        <input type="text" wire:model.defer="phone" class="form-control" placeholder="Enter Phone Number" />
                                         @error('phone')<small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label>Email Address</label>
-                                        <input type="email" wire:model="email" class="form-control" placeholder="Enter Email Address" />
+                                        <input type="email" wire:model.defer="email" class="form-control" placeholder="Enter Email Address" />
                                         @error('email')<small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label>Pin-code (Zip-code)</label>
-                                        <input type="text" wire:model="pincode" class="form-control" placeholder="Enter Pin-code" />
+                                        <input type="text" wire:model.defer="pincode" class="form-control" placeholder="Enter Pin-code" />
                                         @error('pincode')<small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label>Full Address</label>
-                                        <textarea wire:model="address" class="form-control" rows="2"></textarea>
+                                        <textarea wire:model.defer="address" class="form-control" rows="2"></textarea>
                                         @error('address')<small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -61,13 +61,20 @@
                                                 <div class="tab-pane active show fade" id="cashOnDeliveryTab" role="tabpanel" aria-labelledby="cashOnDeliveryTab-tab" tabindex="0">
                                                     <h6>Cash on Delivery Mode</h6>
                                                     <hr/>
-                                                    <button type="button" class="btn btn-primary" wire:click="codOrder">Place Order (Cash on Delivery)</button>
+                                                    <button type="button" class="btn btn-primary" wire:click="codOrder" wire:loading.attr="disabled">
+                                                        <span wire:loading.remove wire:target='codOrder'>
+                                                            Place Order (Cash on Delivery)
+                                                        </span>
+                                                        <span wire:loading wire:target='codOrder'>
+                                                            Placeing Order
+                                                        </span>
+                                                    </button>
 
                                                 </div>
                                                 <div class="tab-pane fade" id="onlinePayment" role="tabpanel" aria-labelledby="onlinePayment-tab" tabindex="0">
                                                     <h6>Online Payment Mode</h6>
                                                     <hr/>
-                                                    <button type="button" class="btn btn-warning">Pay Now (Online Payment)</button>
+                                                    <button type="button" wire:loading.attr="disabled" class="btn btn-warning">Pay Now (Online Payment)</button>
                                                 </div>
                                             </div>
                                         </div>
