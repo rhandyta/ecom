@@ -13,6 +13,68 @@ class CheckoutShow extends Component
     public $carts, $totalProductAmount = 0;
     public $fullname, $email, $phone, $address, $pincode, $payment_mode = NULL, $payment_id = NULL;
 
+    protected $listeners = [
+        'validationForAll',
+        'transactionEmit' => 'paidOnlineOrder'
+    ];
+
+    public function paidOnlineOrder($value)
+    {
+        $this->payment_id = $value;
+        $this->payment_mode = "Paid by Paypal";
+        DB::beginTransaction();
+        try {
+            $order = Order::create([
+                'user_id' => auth()->user()->id,
+                'tracking_no' => \Str::slug(env('APP_NAME', 'WebStore')) . '-' . \Str::random(4),
+                'fullname' => $this->fullname,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'pincode' => $this->pincode,
+                'address' => $this->address,
+                'status_message' => 'In Progress',
+                'payment_mode' => $this->payment_mode,
+                'payment_id' => $this->payment_id,
+            ]);
+
+            foreach ($this->carts as $cartItem) {
+                $orderItems = Orderitem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem->product_id,
+                    'product_color_id' => $cartItem->product_color_id,
+                    'quantity' => $cartItem->quantity,
+                    'price' => $cartItem->product->selling_price,
+                ]);
+                if ($cartItem->product_color_id != NULL) {
+                    $cartItem->ProductColor()->where('id', '=', $cartItem->product_color_id)->decrement('quantity', $cartItem->quantity);
+                    $cartItem->Product()->where('id', '=', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
+                } else {
+                    $cartItem->Product()->where('id', '=', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
+                }
+            }
+            DB::commit();
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Order placed successfully',
+                'type' => 'success',
+                'status' => 200,
+            ]);
+            return redirect()->route('thank-you');
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Something went wrong',
+                'type' => 'error',
+                'status' => 500,
+            ]);
+            return false;
+        }
+    }
+
+    public function validationForAll()
+    {
+        $this->validate();
+    }
+
     public function rules()
     {
         return [
@@ -66,6 +128,7 @@ class CheckoutShow extends Component
                 'type' => 'error',
                 'status' => 500,
             ]);
+            return false;
         }
     }
 
