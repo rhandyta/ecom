@@ -103,7 +103,7 @@
                             <span class="float-end">${{ $totalPrice }}</span>
                         </h4>
                         <hr>
-                        <a href="" class="btn btn-warning w-100">Checkout</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-warning w-100">Checkout</a>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ class CartShow extends Component
 
     public function decrementQuantity(int $cartId)
     {
-        $cartData = Cart::where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
+        $cartData = Cart::with(['product', 'productcolor'])->where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
         if ($cartData) {
             if ($cartData->quantity > 1) {
                 $cartData->decrement('quantity');
@@ -39,7 +39,7 @@ class CartShow extends Component
 
     public function incrementQuantity(int $cartId)
     {
-        $cartData = Cart::where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
+        $cartData = Cart::with(['product'])->where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
         if ($cartData) {
             if ($cartData->productColor()->where('id', '=', $cartData->product_color_id)->exists()) {
                 $productColor = $cartData->productColor()->where('id', '=', $cartData->product_color_id)->first();
@@ -84,7 +84,7 @@ class CartShow extends Component
 
     public function removeCartItem(int $cartId)
     {
-        $cardRemoveData = Cart::where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
+        $cardRemoveData = Cart::with(['product'])->where('user_id', '=', auth()->user()->id)->where('id', '=', $cartId)->first();
         if ($cardRemoveData) {
             $cardRemoveData->delete();
             $this->dispatchBrowserEvent('message', [
@@ -104,7 +104,7 @@ class CartShow extends Component
 
     public function render()
     {
-        $this->cart = Cart::where('user_id', '=', auth()->user()->id)->get();
+        $this->cart = Cart::with(['product'])->where('user_id', '=', auth()->user()->id)->get();
         return view('livewire.frontend.cart.cart-show', [
             'carts' => $this->cart
         ]);
