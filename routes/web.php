@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\CartController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+    Route::get('cart', [CartController::class, 'index'])->name('cart');
 });
 
 
