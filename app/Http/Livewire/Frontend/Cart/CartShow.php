@@ -3,13 +3,12 @@
 namespace App\Http\Livewire\Frontend\Cart;
 
 use App\Models\Cart;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CartShow extends Component
 {
 
-    public $cart;
+    public $cart, $totalPrice = 0;
 
     public function decrementQuantity(int $cartId)
     {
@@ -96,9 +95,9 @@ class CartShow extends Component
             $this->emit("CartAddedOrUpdated");
         } else {
             $this->dispatchBrowserEvent('message', [
-                'text' => "Item no exists",
+                'text' => "Something went wrong",
                 'type' => "error",
-                'status' => 404
+                'status' => 500
             ]);
         }
     }
