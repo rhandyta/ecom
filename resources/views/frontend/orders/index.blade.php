@@ -9,7 +9,7 @@
                         <h4 class="mb-4">My Orders</h4>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-bordered text-center">
                                 <thead>
                                     <th>Order ID</th>
                                     <th>Tracking No</th>
@@ -24,12 +24,12 @@
                                         $no = ($orders->currentPage() - 1) * $orders->perPage() + 1
                                     @endphp
                                     @forelse ($orders as $orderItem)
-                                        <tr class="text-center">
+                                        <tr class="">
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $orderItem->tracking_no }}</td>
                                             <td>{{ $orderItem->fullname }}</td>
                                             <td>{{ $orderItem->payment_mode }}</td>
-                                            <td>{{ date('d-F-Y', strtotime($orderItem->created_at)) }}</td>
+                                            <td>{{ $orderItem->created_at->format('d F Y h:i A') }}</td>
                                             <td>
                                                 @if ($orderItem->status_message == 'In Progress')
                                                     <span class="badge bg-secondary">
@@ -46,7 +46,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary btn-sm">View</a>
+                                                <a href="{{ route('order.show', $orderItem->id) }}" class="btn btn-primary btn-sm">View</a>
                                             </td>
                                         </tr>
                                     @empty
@@ -54,9 +54,6 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="">
-                                {{ $orders->links('pagination::bootstrap-5') }}
-                            </div>
                         </div>
                     </div>
                 </div>
