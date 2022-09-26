@@ -35,9 +35,17 @@
                                                     <span class="badge bg-secondary">
                                                         {{ $orderItem->status_message }}
                                                     </span>
-                                                @elseif ($orderItem->status_message == 'Delivery')
-                                                <span class="badge bg-primary">
+                                                @elseif ($orderItem->status_message == 'Pending')
+                                                <span class="badge bg-info">
                                                     {{ $orderItem->status_message }}
+                                                </span>
+                                                @elseif ($orderItem->status_message == 'Cancelled')
+                                                <span class="badge bg-danger">
+                                                    {{ $orderItem->status_message }}
+                                                </span>
+                                                @elseif ($orderItem->status_message == 'Out-For-Delivery')
+                                                <span class="badge bg-warning">
+                                                    Out For Delivery
                                                 </span>
                                                 @else
                                                 <span class="badge bg-success">

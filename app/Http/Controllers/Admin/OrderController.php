@@ -9,10 +9,20 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $todayDate = Carbon::now();
-        $orders = Order::whereDate('created_at', $todayDate)->paginate(25);
+        $todayDate = Carbon::now()->format('Y-m-d');
+        $orders = Order::query()
+            ->when($request->date != null, function ($q) use ($request) {
+                $q->whereDate('created_at', $request->date);
+            }, function ($q) use ($todayDate) {
+                $q->whereDate('created_at', $todayDate);
+            })
+            ->when($request->status != null, function ($q) use ($request) {
+                $q->where('status_message', $request->status);
+            })
+            ->paginate(25);
+
         return view('admin.orders.index', compact('orders'));
     }
 
