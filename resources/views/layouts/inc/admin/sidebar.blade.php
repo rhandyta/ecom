@@ -7,9 +7,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/forms/basic_elements.html">
+      <a class="nav-link" href="{{ route('orders') }}">
         <i class="mdi mdi-chart-bar menu-icon"></i>
-        <span class="menu-title">Sales</span>
+        <span class="menu-title">Orders</span>
       </a>
     </li>
     <li class="nav-item">

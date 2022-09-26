@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -63,4 +64,7 @@ Route::group([
     Route::resource('color', ColorController::class);
 
     Route::resource('slider', SliderController::class);
+
+    Route::get('orders', [AdminOrderController::class, 'index'])->name('orders');
+    Route::get('orders/{order:id}', [AdminOrderController::class, 'show'])->name('admin.showorders');
 });
