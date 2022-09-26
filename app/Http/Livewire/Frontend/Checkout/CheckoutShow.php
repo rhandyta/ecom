@@ -49,6 +49,7 @@ class CheckoutShow extends Component
                     $cartItem->ProductColor()->where('id', '=', $cartItem->product_color_id)->decrement('quantity', $cartItem->quantity);
                     $cartItem->Product()->where('id', '=', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
                 } else {
+                    Cart::where('user_id', '=', auth()->user()->id)->delete();
                     $cartItem->Product()->where('id', '=', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
                 }
             }

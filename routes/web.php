@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,8 @@ Route::group([
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::get('cart', [CartController::class, 'index'])->name('cart');
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::get('orders', [OrderController::class, 'index'])->name('order');
+    Route::get('order/{order:id}', [OrderController::class, 'show'])->name('order.show');
 });
 
 Route::get('thank-you', [FrontendController::class, 'thankyou'])->name('thank-you');
