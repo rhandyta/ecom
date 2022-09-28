@@ -68,4 +68,6 @@ Route::group([
     Route::get('orders', [AdminOrderController::class, 'index'])->name('orders');
     Route::get('orders/{order:id}', [AdminOrderController::class, 'show'])->name('admin.showorders');
     Route::put('orders/{order:id}', [AdminOrderController::class, 'update'])->name('admin.updateorders');
+    Route::get('invoice/{order:id}/generate', [AdminOrderController::class, 'viewInvoice'])->name('admin.invoice');
+    Route::get('invoice/{order:id}', [AdminOrderController::class, 'generateInvoice'])->name('admin.invoicegenerate');
 });

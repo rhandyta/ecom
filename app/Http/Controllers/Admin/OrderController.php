@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Pdf;
 
 class OrderController extends Controller
 {
@@ -46,5 +47,20 @@ class OrderController extends Controller
         } else {
             return redirect()->route('admin.showorders', $order->id)->with('message', 'Order not found');
         }
+    }
+
+    public function viewInvoice(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        return view('admin.invoice.generate-invoice', compact('order'));
+    }
+
+    public function generateInvoice(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $data = ['order' => $order];
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
+        return $pdf->download('invoice' . $order->id . '-' . $todayDate . '.pdf');
     }
 }

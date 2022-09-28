@@ -14,10 +14,12 @@
             </div>
             <div class="card-body">
                 <div class="shadow bg-white p-3">
-                    <h4 class="text-primary">
+                    <h3>
                         <i class="fa fa-shopping-cart text-dark"></i> Order Details
-                        <a href="{{ route('orders') }}" class="btn btn-primary btn-sm float-end">Back</a>
-                    </h4>
+                        <a href="{{ route('orders') }}" class="btn btn-primary btn-sm float-end mx-1">Back</a>
+                        <a href="{{ route('admin.invoicegenerate', $order->id) }}" target="_blank" class="btn btn-success btn-sm float-end mx-1">Download Invoice</a>
+                        <a href="{{ route('admin.invoice', $order->id) }}" target="_blank" class="btn btn-warning btn-sm float-end mx-1">View Invoice</a>
+                    </h3>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
