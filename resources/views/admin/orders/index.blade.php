@@ -12,11 +12,11 @@
                 <form action="" method="GET">
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="">Filter By Date</label>
+                            <label for="">Filter by Date</label>
                             <input type="date" name="date" value="{{ request()->get('date') ?? date('d-m-Y') }}" class="form-control">
                         </div>
                         <div class="col-md-3">
-                            <label for="">Filter By Status</label>
+                            <label for="">Filter by Status</label>
                             <select name="status" class="form-select" aria-label="Default select example">
                                 <option value="">Select Status</option>
                                 <option value="In Progress" {{ request()->get('status') == 'In Progress' ? 'selected' : '' }}>In Progress</option>
