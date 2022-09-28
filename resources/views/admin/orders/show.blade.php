@@ -3,6 +3,11 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if (session('message'))
+            <div class="alert-alert-success mb-3">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-header">
                 <h3 class="">Order Details</h3>
@@ -23,7 +28,29 @@
                             <h6>Ordered Date: {{ $order->created_at->format('d F Y h:i A') }}</h6>
                             <h6>Payment Mode: {{ $order->payment_mode }}</h6>
                             <h6 class="border p-2 text-secondary">
-                                Order Status Message: <span class="text-uppercase">{{ $order->status_message }}</span>
+                                Order Status Message: <span class="text-uppercase">
+                                    @if ($order->status_message == 'In Progress')
+                                    <span class="badge bg-secondary">
+                                        {{ $order->status_message }}
+                                    </span>
+                                    @elseif ($order->status_message == 'Pending')
+                                        <span class="badge bg-info">
+                                            {{ $order->status_message }}
+                                        </span>
+                                    @elseif ($order->status_message == 'Cancelled')
+                                        <span class="badge bg-danger">
+                                            {{ $order->status_message }}
+                                        </span>
+                                    @elseif ($order->status_message == 'Out-For-Delivery')
+                                        <span class="badge bg-warning">
+                                            Our For Delivery
+                                        </span>
+                                    @else
+                                        <span class="badge bg-success">
+                                            {{ $order->status_message }}
+                                        </span>
+                                    @endif
+                                </span>
                             </h6>
                         </div>
                         <div class="col-md-6">
@@ -94,6 +121,38 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        <div class="card border mt-3">
+            <div class="card-body">
+                <h4>Order Proses (Order Status Updates)</h4>
+                <hr>
+                <div class="row">
+                    <div class="col-md-5">
+                        <form action="{{ route('admin.updateorders', $order->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <label>Update your order status</label>
+                            <div class="input-group">
+                                <select name="order_status"  class="form-select">
+                                    <option value="">Select Order Status</option>
+                                    <option value="In Progress" {{ request()->get('status') == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                    <option value="Completed" {{ request()->get('status') == "Completed" ? 'selected' : '' }}>Completed</option>
+                                    <option value="Pending" {{ request()->get('status') == "Pending" ? 'selected' : '' }}>Pending</option>
+                                    <option value="Cancelled" {{ request()->get('status') == "Cancelled" ? 'selected' : '' }}>Cancelled</option>
+                                    <option value="Out-For-Delivery" {{ request()->get('status') == "Out-For-Delivery" ? 'selected' : '' }}>Out For Delivery</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary text-white">Update</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="col-md-7">
+                        <br>
+                        <h4 class="mt-3">Current order status: <span class="text-uppercase">{{ $order->status_message }}</span></h4>
+                    </div>
                 </div>
             </div>
         </div>
