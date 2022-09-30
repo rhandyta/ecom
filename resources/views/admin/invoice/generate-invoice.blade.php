@@ -185,7 +185,7 @@
 
     <br>
     <p class="text-center">
-        Thank your for shopping with {{ env('APP_NAME') }}
+        Thank your for shopping with ~{{ env('APP_NAME') }}~
     </p>
 
 </body>
