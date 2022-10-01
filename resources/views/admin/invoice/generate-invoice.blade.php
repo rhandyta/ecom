@@ -154,7 +154,6 @@
         </thead>
         <tbody>
             @php
-                // $no = ($order->currentPage() - 1) * $order->perPage() + 1
                 $totalPrice = 0;
             @endphp
             @foreach ($order->OrderItems as $orderItem)
